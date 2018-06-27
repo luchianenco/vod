@@ -1,0 +1,20 @@
+version: '3'
+services:
+  nodejs:
+    build: .
+    command: npm run dev
+    depends_on:
+      - mongo
+    volumes:
+      - ./src:/usr/app/src
+      - ./node_modules:/usr/app/node_modules
+    ports:
+      - "3000:3000"
+  mongo:
+    image: mongo:3.2-jessie
+    restart: always
+    volumes:
+      - ./resources/docker/volume/mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
