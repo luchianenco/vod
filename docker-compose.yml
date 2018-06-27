@@ -1,13 +1,14 @@
 version: '3'
 services:
-  nodejs:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: ./resources/docker/image/nodejs/Dockerfile
     command: npm run dev
     depends_on:
       - mongo
     volumes:
       - ./src:/usr/app/src
-      - ./node_modules:/usr/app/node_modules
     ports:
       - "3000:3000"
   mongo:
@@ -18,3 +19,5 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
