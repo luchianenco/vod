@@ -4,6 +4,12 @@ DOCKER_COMPOSE        = docker-compose
 .PHONY: dev
 dev: _dev_start_up setup
 
+.PHONY: update
+update:
+	$(DOCKER_COMPOSE) build app
+	$(DOCKER_COMPOSE) up -d
+
+
 .PHONY: stop
 stop:
 	$(DOCKER_COMPOSE) stop

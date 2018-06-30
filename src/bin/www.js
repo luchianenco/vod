@@ -1,8 +1,20 @@
-const express = require('express');
-const app = express();
+const express = require('express'),
+    app = express()
+    Video = require('../models/video')
+    bodyParser = require('body-parser')
+    dbConnection = {}
+;
 
-app.get('/', (req, res) => res.send('Hello World!'));
+require('../clients/mongoClient');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var routes = require('../routes/videoRoutes'); //importing route
+routes(app); //register the route
+
+//
+app.get('/', (req, res) => res.json({"status":"active"}));
 app.set('port', process.env.PORT || 3000);
 
 const server = app.listen(app.get('port'), function() {

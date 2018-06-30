@@ -7,10 +7,14 @@ services:
     command: npm run dev
     depends_on:
       - mongo
+    links:
+      - mongo
     volumes:
       - ./src:/usr/app/src
     ports:
       - "3000:3000"
+    env_file:
+      - .env
   mongo:
     image: mongo:3.2-jessie
     restart: always
