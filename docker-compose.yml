@@ -11,12 +11,14 @@ services:
       - mongo
     volumes:
       - ./src:/usr/app/src
+      - ./var:/usr/app/var
+      - ./node_modules:/usr/app/node_modules
     ports:
       - "3000:3000"
     env_file:
       - .env
   mongo:
-    image: mongo:3.2-jessie
+    image: mongo:3.6-jessie
     restart: always
     volumes:
       - ./resources/docker/volume/mongo:/data/db

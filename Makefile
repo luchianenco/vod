@@ -20,7 +20,7 @@ clean:
 
 .PHONY: console
 console:
-	$(DOCKER_COMPOSE) run --rm nodejs bash < /dev/tty
+	$(DOCKER_COMPOSE) run --rm app bash < /dev/tty
 
 .PHONY: _dev_start_up
 _dev_start_up:

@@ -1,10 +1,16 @@
 'use strict';
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
+
 const Schema = mongoose.Schema;
 
 const VideoSchema = new Schema({
-    publishedAt: {
+    _id: {
         type: String,
+        required: 'Unique ID is required',
+    },
+    publishedAt: {
+        type: Date,
         required: 'Publish Date is required'
     },
     title: {
@@ -14,20 +20,21 @@ const VideoSchema = new Schema({
     description: {
         type: String
     },
+    language: {
+        type: String,
+        required: 'Language is required',
+        default: 'English'
+    },
     channelTitle: {
         type: String
     },
     channelId: {
         type: String
     },
-    youtubeVideoId: {
-        type: String,
-        required: 'Youtube Video ID is required'
-    },
     category: {
         type: [{
             type: String,
-            enum: ['Mobile', 'Desktop', 'BackEnd', 'FrontEnd']
+            enum: ['Mobile', 'Desktop', 'BackEnd', 'FrontEnd', 'Highload']
         }]
     },
     status: {
@@ -36,7 +43,14 @@ const VideoSchema = new Schema({
             enum: ['completed', 'ongoing', 'pending']
         }],
         default: 'pending'
+    },
+    thumbnails: {
+        type: Object
+    },
+    tags: {
+        type: Array
     }
 });
+VideoSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('video', VideoSchema);
